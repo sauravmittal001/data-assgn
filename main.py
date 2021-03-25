@@ -109,11 +109,6 @@ if __name__ == '__main__':
     # number of permutations = 3628800
     permutations(A, 0, len(A), seq)
 
-    h = 0
-    for i in sorted(m):
-        h += m[i]
-    print(h)
-
     # Stage D: Evaluating the Cost of a Counting Cycle
     evaluate_cycle_cost(10)
     # Stage C: Best and Worst Cycles
