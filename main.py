@@ -49,19 +49,21 @@ def print_cost_matrix():
         [1, 1, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 0, 1, 1]
     ]
+    # order is top, right top, right bottom, bottom, left bottom, left top, centre.
     #This is being implmented using the digital logic concept of 7-segment dispaly and which some LEDs
-    #out of 7 glow to show a digit. Wherever a difference in a bit(LED) is found, cost is incremeted
+    #out of 7 glow to show a digit. For writing 0, only centre(last) bit is 0 rest all 1; for 1 only left top & left bottom are 1; for 8, all bits are 1
     
     for i in range(0, 10):
-        num1 = nums[i]
+        num1 = nums[i]			#assigning one digit to num1
         for j in range(0, 10):
-            num2 = nums[j]
+            num2 = nums[j]		#assigning one digit to num2
             cost = 0
-            for bit in range(0, 7):
-                if num1[bit] != num2[bit]:
+            for bit in range(0, 7):	#iterating over all LEDs to check all changes during any transition
+                if num1[bit] != num2[bit]:    #If difference in a bit(LED) is found, cost is incremeted (this represents transition from one digit to another)
                     cost += 1
             cost_matrix[i][j] = cost
             cost_matrix[j][i] = cost
+					#cost_matrix is the required adjacency matrix, where nodes are digit dispalyed, and edges are costs for digit change
 
     for i in range(0, 10):              #Printing the complete cost matrix, to get transition cost 
         print(cost_matrix[i])           #from any node(digit) to any node(digit)
@@ -75,12 +77,12 @@ def print_csv():
     print("\n")
 
 
-def evaluate_cycle_cost(n):             #To prove that cost is same over a loop in a cyclic order
-    print("\n")                         #for the required sequence
-    arr = [None] * n
-    for i in range(n):
-        for j in range(n):
-            arr[j] = (j + i) % n        #Loops in same order(cycle), changing start points 
+def evaluate_cycle_cost(n):             #To prove that cost is same over a loop in a cyclic order for the required sequence
+    print("\n")                         
+    arr = [None] * n			
+    for i in range(n):			#For all different start points, check if cost is same
+        for j in range(n):		#Given start point i, loop over 0 to n-1 via variable j
+            arr[j] = (j + i) % n        #Loops in same order(cycle), changing start points with i
         print(arr, ": cost = ", calculate_cost(arr))
     print("For the given cycles, all costs are equal!\n")
 
